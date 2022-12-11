@@ -23,6 +23,10 @@ public class SpotModel implements Serializable {
     @Column(nullable = false)
     private LocalDateTime createAt;
 
+    @Column(nullable = false)
+    private LocalDateTime updateAt;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private CarModel car;
 
 }

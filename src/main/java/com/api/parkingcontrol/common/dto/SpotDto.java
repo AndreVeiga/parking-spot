@@ -1,4 +1,4 @@
-package com.api.parkingcontrol.dtos;
+package com.api.parkingcontrol.common.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

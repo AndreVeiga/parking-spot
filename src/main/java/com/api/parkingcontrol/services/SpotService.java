@@ -1,12 +1,8 @@
 package com.api.parkingcontrol.services;
 
-import com.api.parkingcontrol.repositories.SpotRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.api.parkingcontrol.common.dto.SpotDto;
+import com.api.parkingcontrol.models.SpotModel;
 
-@Service
-public class SpotService {
-    @Autowired
-    private SpotRepository spotRepository;
-
+public interface SpotService {
+    public SpotModel create(SpotDto data);
 }
