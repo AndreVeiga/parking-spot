@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ public class CarServiceImpl implements CarService {
     public CarModel create(CarDto data) {
         CarModel car = new CarModel();
         BeanUtils.copyProperties(data, car);
+        car.setCreateAt(LocalDateTime.now(ZoneId.of("UTC")));
         return this.repository.save(car);
     }
 

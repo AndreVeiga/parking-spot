@@ -28,4 +28,7 @@ public class CarModel implements Serializable {
 
     @Column(nullable = false, length = 20)
     private String brand;
+
+    @Column(nullable = false)
+    private LocalDateTime createAt;
 }
