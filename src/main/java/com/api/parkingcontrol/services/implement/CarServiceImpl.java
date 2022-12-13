@@ -2,10 +2,14 @@ package com.api.parkingcontrol.services.implement;
 
 import com.api.parkingcontrol.common.dto.CarDto;
 import com.api.parkingcontrol.common.dto.CarUpdateDto;
+import com.api.parkingcontrol.common.enums.RabbitMQ;
+import com.api.parkingcontrol.integrations.CarIntegration;
 import com.api.parkingcontrol.models.CarModel;
 import com.api.parkingcontrol.repositories.CarRepository;
 import com.api.parkingcontrol.services.CarService;
 import jakarta.transaction.Transactional;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +28,17 @@ public class CarServiceImpl implements CarService {
     @Autowired
     private CarRepository repository;
 
+    @Autowired
+    private CarIntegration carIntegration;
+
     @Override
     public CarModel create(CarDto data) {
         CarModel car = new CarModel();
         BeanUtils.copyProperties(data, car);
         car.setCreateAt(LocalDateTime.now(ZoneId.of("UTC")));
+
+        carIntegration.publisherMessage(car.getPlace());
+
         return this.repository.save(car);
     }
 
